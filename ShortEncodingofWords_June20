@@ -1,0 +1,26 @@
+# problem link -> https://leetcode.com/problems/short-encoding-of-words/
+
+class Solution:
+    def minimumLengthEncoding(self, words: List[str]) -> int:
+        words = list(set(words))
+        words.sort(key=len)
+
+        tormv = []
+        
+        for i in range(len(words)):
+            for j in range(i+1, len(words)):
+                if words[j].endswith(words[i]):
+                    tormv.append(words[i])
+
+        tormv = set(tormv)
+
+        ans = 0
+        for word in words:
+            ans += len(word)
+        for word in tormv:
+            ans -= len(word)
+
+        ans += len(words) - len(tormv)
+
+        return(ans)
+        
